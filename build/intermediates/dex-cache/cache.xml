@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/jean/Desktop/SuperMarket/libraryzxing/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c47da4240a04225098fa84d7c22d7d22fc133121">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/debug/classes_71bcc94691a9c3abd0f2c793f938891a2acadb4a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/8491c53ce409b13ca24387b72e171142c9db16e7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="dbfaa66636f1fadb6cff4080a3a271e97f288340">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/debug/classes_1b4154d58f9f9c25a5f84d18db88701f43121126.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jean/Desktop/SuperMarket/libraryzxing/build/intermediates/bundles/default/libs/zxing.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c071a25217cf69bb3dca1771a80a88da77a5bb21">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/debug/zxing_f5471b5678b008e4fef7861c90b74b64b127f469.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jean/Desktop/SuperMarket/app/libs/DataCollection.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="df095f25878dd6b78e200cd3f27f038668b45394">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/debug/DataCollection_056721d3e54d51f26f8dbfaa9600e47a036c9524.jar" />
+    </item>
+
+</items>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SuperMarket</string>
+
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="exit">ВЫХОД</string>
+    <string name="scan_your_code">Отсканируйте свой штрихкод: </string>
+    <string name="enter_your_pin">Введите свой Pin-код: </string>
+    <string name="login">Логин</string>
+    <string name="enter">войти</string>
+    <string name="sort">сортировать</string>
+    <string name="close_cell">закрыть ячейку</string>
+    <string name="config_printer">Настройка принтера</string>
+
+    <string name="btnScannerSelectBarcode">Scanner Selection Example</string>
+    <string name="btnSwitchScanners">Switch Scanners</string>
+    <string name="txtBarcodeTitle">Press the device\'s scan button to scan a barcode.</string>
+    <string name="scan_package">Сканируйте ШПИ посылки</string>
+    <string name="your_code">ваш штрихкод</string>
+    <string name="scan_bag">Сканируйте ШПИ мешка</string>
+    <string name="enter_seal">Введите номер пломбы</string>
+    <string name="enter_weight">Введите вес</string>
+    <string name="back">назад</string>
+    <string name="next">далее</string>
+    <string name="chose_printer">Выбор принтера</string>
+    <string name="repeat_label_print">повторить печать ярлыка</string>
+    <string name="no_user_barcode">нет баркода оператора</string>
+    <string name="pin">Пин-код</string>
+    <string name="tv_tech_index_list">Список тех индексов</string>
+
+
+    <string name="spinner_dialog_title">Выберите отделение</string>
+    <string name="btn_close">Закрыть</string>
+</resources>

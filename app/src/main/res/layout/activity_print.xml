@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kazpost.kz.supermarket.ui.print.PrintActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_main_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/ll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorBlue"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Номер G накладной: G20170203001524"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Номер пломбы: 1954928"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вес мешка: 0,56кг"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ФИО оператора: Камеева Гульсара Канаевна"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ll1"
+            android:layout_weight="1"
+            android:background="@color/colorBlue"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Время закрытия мешка: 02.02.2017 10:52:16"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Индекс пункта назначения: [050054]"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Название пункта назначения: Алматы-54"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/et_code_g"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_main_print"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_text_background" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_print_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btn_back_closecell"
+            style="@style/BlueButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:text="@string/chose_printer" />
+
+        <Button
+            android:id="@+id/btn_next_closecell"
+            style="@style/BlueButton"
+            android:layout_width="0dp"
+            android:textSize="10sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:text="@string/repeat_label_print" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_print_buttons"
+        android:layout_centerHorizontal="true"
+        android:text="Отсканируйте номер G-накладной" />
+
+</RelativeLayout>

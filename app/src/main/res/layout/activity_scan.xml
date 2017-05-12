@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kazpost.kz.supermarket.ui.scanner.ScanActivity">
+
+
+    <LinearLayout
+        android:id="@+id/ll_scan_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/scan_package"
+            android:textColor="@color/black_effective"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_scan_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_scan_activity"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_text_background" />
+
+
+    <EditText
+        android:id="@+id/et_scan_bag"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_scan_activity"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_text_background" />
+
+
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/et_scan_bag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="scan"/>
+</RelativeLayout>
