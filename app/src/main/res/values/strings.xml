@@ -30,4 +30,5 @@
 
     <string name="spinner_dialog_title">Выберите отделение</string>
     <string name="btn_close">Закрыть</string>
+    <string name="scan_title">Сканируйте или введите данные</string>
 </resources>

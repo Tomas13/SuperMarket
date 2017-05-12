@@ -3,9 +3,9 @@ package kazpost.kz.supermarket.ui.scanner;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import kazpost.kz.supermarket.R;
 import kazpost.kz.supermarket.ui.base.BaseActivity;
@@ -27,10 +28,14 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     @Inject
     ScanMvpPresenter<ScanMvpView> presenter;
 
-    @BindView(R.id.et_scan_activity)
+    @BindView(R.id.et_postcode)
     EditText etScanActivity;
-    @BindView(R.id.et_scan_bag)
+    @BindView(R.id.et_row)
     EditText etScanBag;
+    @BindView(R.id.btn_scan)
+    FloatingActionButton btnScan;
+    @BindView(R.id.et_cell)
+    EditText etCell;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +47,9 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         presenter.onAttach(ScanActivity.this);
 
 
-        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
-        // Must be done during an initialization phase like onCreate
-        rxPermissions
-                .request(Manifest.permission.CAMERA)
-                .subscribe(granted -> {
-                    if (granted) { // Always true pre-M
-                        // I can control the camera now
-                        Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(this, CaptureActivity.class);
-                        intent.putExtra(ZXingConstants.ScanIsShowHistory, true);
-                        startActivityForResult(intent, ZXingConstants.ScanRequestCode);
-                    } else {
-                        // Oups permission denied
-                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
     }
 
-    @OnTextChanged(R.id.et_scan_activity)
+    @OnTextChanged(R.id.et_postcode)
     public void onScan() {
 //        presenter.onScan(etScanActivity.getText().toString());
     }
@@ -83,11 +69,27 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
             case ZXingConstants.ScanRequestCode:
                 if (resultCode == ZXingConstants.ScanRequestCode) {
                     String result = data.getStringExtra(ZXingConstants.ScanResult);
-                    etScanActivity.setText(result);
+//                    etScanActivity.setText(result);
 
-                    etScanBag.setVisibility(View.VISIBLE);
-                    etScanBag.requestFocus();
+//                    etScanBag.setVisibility(View.VISIBLE);
+//                    etScanBag.requestFocus();
 
+                    if (etScanActivity.hasFocus()) {
+                        etScanActivity.setText(result);
+                        etScanBag.requestFocus();
+                        break;
+                    }
+
+                    if (etScanBag.hasFocus()) {
+                        etScanBag.setText(result);
+                        etCell.requestFocus();
+                        break;
+                    }
+
+                    if (etCell.hasFocus()) {
+                        etCell.setText(result);
+                        break;
+                    }
 
                 } else if (resultCode == ZXingConstants.ScanHistoryResultCode) {
                     String resultHistory = data.getStringExtra(ZXingConstants.ScanHistoryResult);
@@ -116,5 +118,27 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.btn_scan)
+    public void onViewClicked() {
+        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
+        // Must be done during an initialization phase like onCreate
+        rxPermissions
+                .request(Manifest.permission.CAMERA)
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+                        // I can control the camera now
+                        Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(this, CaptureActivity.class);
+                        intent.putExtra(ZXingConstants.ScanIsShowHistory, true);
+                        startActivityForResult(intent, ZXingConstants.ScanRequestCode);
+                    } else {
+                        // Oups permission denied
+                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 }

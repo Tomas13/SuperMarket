@@ -25,7 +25,7 @@ public class ChooseIndexActivity extends BaseActivity implements ChooseIndexMvpV
     ChooseIndexPresenter<ChooseIndexMvpView> mPresenter;
     @BindView(R.id.spinner_tech_index)
     SearchableSpinner spinnerTechIndex;
-    
+
     @BindString(R.string.spinner_dialog_title)
     String spinnerTitle;
     @BindView(R.id.floatingActionButton)
