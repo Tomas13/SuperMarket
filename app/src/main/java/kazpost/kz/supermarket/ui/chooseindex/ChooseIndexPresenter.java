@@ -17,6 +17,8 @@ import rx.schedulers.Schedulers;
 
 public class ChooseIndexPresenter<V extends ChooseIndexMvpView> extends BasePresenter<V> implements ChooseIndexMvpPresenter<V> {
 
+    private List<TechIndex> techIndexListVar;
+
     @Inject
     public ChooseIndexPresenter(DataManager dataManager) {
         super(dataManager);
@@ -34,18 +36,35 @@ public class ChooseIndexPresenter<V extends ChooseIndexMvpView> extends BasePres
                 .subscribe(techIndexList -> {
 
 
-                            getMvpView().showTechIndexList(techIndexList);
+                            techIndexListVar = techIndexList;
 
-                            getMvpView().onErrorToast(techIndexList.get(0).getPostcode() + "");
+                            getMvpView().showTechIndexList(techIndexList);
 
                             getMvpView().hideLoading();
                         },
                         throwable -> {
-                            if (throwable.getMessage() != null)
+
+                            if (throwable.getMessage() != null) {
                                 getMvpView().onErrorToast(throwable.getMessage());
+                            }
+
                             getMvpView().hideLoading();
 
                         }
                 );
+    }
+
+    @Override
+    public void setSpinnerSelection() {
+        getMvpView().setSpinnerSelectionInView(getDataManager().getSpinnerPosition());
+    }
+
+
+    @Override
+    public void savePostIndexToPrefs(int position) {
+        getDataManager().savePostIndex(techIndexListVar.get(position).getPostcode());
+
+
+        getDataManager().saveSpinnerPosition(position);
     }
 }

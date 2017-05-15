@@ -6,5 +6,11 @@ package kazpost.kz.supermarket.data.prefs;
 
 public interface PreferencesHelper {
 
-    void saveSessionId(String sessionId);
+    void savePostIndex(String postIndex);
+
+    void saveSpinnerPosition(int position);
+
+    int getSpinnerPosition();
+
+    String getPostIndex();
 }

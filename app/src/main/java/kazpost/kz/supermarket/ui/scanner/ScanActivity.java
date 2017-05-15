@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baozi.Zxing.CaptureActivity;
@@ -36,6 +37,8 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     FloatingActionButton btnScan;
     @BindView(R.id.et_cell)
     EditText etCell;
+    @BindView(R.id.tv_current_post_index)
+    TextView tvCurrentPostIndex;
 
     String cell, row, barcode;
 
@@ -50,6 +53,12 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         presenter.onAttach(ScanActivity.this);
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.showCurrentTechIndex();
     }
 
     @OnTextChanged(R.id.et_postcode)
@@ -150,5 +159,10 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                     }
                 });
 
+    }
+
+    @Override
+    public void showCurrentTechIndex(String currentTechIndex) {
+        tvCurrentPostIndex.setText("Текущий тех индекс : " + currentTechIndex);
     }
 }

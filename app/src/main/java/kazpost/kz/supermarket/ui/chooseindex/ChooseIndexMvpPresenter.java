@@ -12,4 +12,7 @@ public interface ChooseIndexMvpPresenter<V extends ChooseIndexMvpView> extends M
 
     void loadTechIndexList();
 
+    void setSpinnerSelection();
+
+    void savePostIndexToPrefs(int position);
 }

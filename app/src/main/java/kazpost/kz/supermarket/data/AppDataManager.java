@@ -50,11 +50,6 @@ public class AppDataManager implements DataManager {
 
 
     @Override
-    public void saveSessionId(String sessionId) {
-        mPreferencesHelper.saveSessionId(sessionId);
-    }
-
-    @Override
     public Observable<List<TechIndex>> getTechIndexList() {
         return mApiHelper.getTechIndexList();
     }
@@ -64,4 +59,23 @@ public class AppDataManager implements DataManager {
         return mApiHelper.sendData(sendData);
     }
 
+    @Override
+    public void savePostIndex(String postIndex) {
+        mPreferencesHelper.savePostIndex(postIndex);
+    }
+
+    @Override
+    public void saveSpinnerPosition(int position) {
+        mPreferencesHelper.saveSpinnerPosition(position);
+    }
+
+    @Override
+    public int getSpinnerPosition() {
+        return mPreferencesHelper.getSpinnerPosition();
+    }
+
+    @Override
+    public String getPostIndex() {
+        return mPreferencesHelper.getPostIndex();
+    }
 }

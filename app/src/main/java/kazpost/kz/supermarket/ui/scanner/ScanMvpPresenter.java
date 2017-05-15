@@ -13,4 +13,7 @@ public interface ScanMvpPresenter<V extends ScanMvpView> extends MvpPresenter<V>
     void onScan(String number);
 
     void sendData(String barcode, String row, String cell);
+
+    void showCurrentTechIndex();
+
 }

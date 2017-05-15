@@ -42,6 +42,11 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 
     }
 
+    @Override
+    public void showCurrentTechIndex() {
+        getMvpView().showCurrentTechIndex(getDataManager().getPostIndex());
+    }
+
     private void showCell(String s) {
         getMvpView().onError(s);
         getMvpView().hideLoading();

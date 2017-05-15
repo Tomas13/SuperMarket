@@ -15,6 +15,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 import kazpost.kz.supermarket.R;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import kazpost.kz.supermarket.ui.base.BaseActivity;
@@ -47,6 +48,7 @@ public class ChooseIndexActivity extends BaseActivity implements ChooseIndexMvpV
 
     }
 
+
     @Override
     public void showTechIndexList(List<TechIndex> techIndexList) {
         List<String> list = new ArrayList<>();
@@ -58,7 +60,15 @@ public class ChooseIndexActivity extends BaseActivity implements ChooseIndexMvpV
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTechIndex.setAdapter(dataAdapter);
+
+        mPresenter.setSpinnerSelection();
     }
+
+    @Override
+    public void setSpinnerSelectionInView(int position) {
+        spinnerTechIndex.setSelection(position);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -69,5 +79,10 @@ public class ChooseIndexActivity extends BaseActivity implements ChooseIndexMvpV
     @OnClick(R.id.floatingActionButton)
     public void onViewClicked() {
         super.onBackPressed();
+    }
+
+    @OnItemSelected(R.id.spinner_tech_index)
+    public void onSpinnerItemSelected(int position) {
+        mPresenter.savePostIndexToPrefs(position);
     }
 }

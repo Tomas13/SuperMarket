@@ -13,4 +13,6 @@ public interface ChooseIndexMvpView extends MvpView {
 
     void showTechIndexList(List<TechIndex> techIndexList);
 
+
+    void setSpinnerSelectionInView(int position);
 }

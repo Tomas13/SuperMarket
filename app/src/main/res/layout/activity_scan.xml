@@ -27,12 +27,12 @@
     <EditText
         android:id="@+id/et_postcode"
         android:layout_width="match_parent"
-        android:padding="3dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_scan_activity"
         android:layout_margin="8dp"
         android:background="@drawable/edit_text_background"
-        android:hint="ШПИ" />
+        android:hint="ШПИ"
+        android:padding="3dp" />
 
 
     <LinearLayout
@@ -42,7 +42,6 @@
         android:orientation="horizontal">
 
         <EditText
-            android:padding="3dp"
             android:id="@+id/et_row"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,32 +49,42 @@
             android:layout_weight="1"
             android:background="@drawable/edit_text_background"
             android:hint="номер ряда"
+            android:padding="3dp"
             android:visibility="visible" />
 
 
         <EditText
             android:id="@+id/et_cell"
-            android:padding="3dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@drawable/edit_text_background"
             android:hint="номер ячейки"
+            android:padding="3dp"
             android:visibility="visible" />
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_current_post_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="40dp"
+        android:text="Текущий почтовый индекс: " />
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_scan"
         android:layout_width="196dp"
         android:layout_height="196dp"
-        android:layout_marginBottom="21dp"
-        app:srcCompat="@drawable/scan"
-        app:fabSize="normal"
+        android:layout_alignEnd="@+id/et_postcode"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/et_postcode"
-        android:layout_alignEnd="@+id/et_postcode"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp" />
+        app:fabSize="normal"
+        app:srcCompat="@drawable/scan" />
 </RelativeLayout>

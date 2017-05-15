@@ -9,4 +9,7 @@ import kazpost.kz.supermarket.ui.base.MvpView;
 public interface ScanMvpView extends MvpView {
 
     void clearEditText();
+
+    void showCurrentTechIndex(String currentTechIndex);
+
 }
