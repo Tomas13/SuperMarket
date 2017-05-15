@@ -25,10 +25,11 @@
     <string name="repeat_label_print">повторить печать ярлыка</string>
     <string name="no_user_barcode">нет баркода оператора</string>
     <string name="pin">Пин-код</string>
-    <string name="tv_tech_index_list">Список тех индексов</string>
+    <string name="tv_post_index_list">Список почтовых индексов</string>
 
 
     <string name="spinner_dialog_title">Выберите отделение</string>
     <string name="btn_close">Закрыть</string>
     <string name="scan_title">Сканируйте или введите данные</string>
+    <string name="current_post_index">Текущий почтовый индекс : </string>
 </resources>

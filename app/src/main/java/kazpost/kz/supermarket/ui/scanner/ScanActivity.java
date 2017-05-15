@@ -16,6 +16,7 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,6 +41,8 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     @BindView(R.id.tv_current_post_index)
     TextView tvCurrentPostIndex;
 
+    @BindString(R.string.current_post_index)
+    String currentPostIndexLabel;
     String cell, row, barcode;
 
 
@@ -148,14 +151,14 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 .subscribe(granted -> {
                     if (granted) { // Always true pre-M
                         // I can control the camera now
-                        Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(this, CaptureActivity.class);
                         intent.putExtra(ZXingConstants.ScanIsShowHistory, true);
                         startActivityForResult(intent, ZXingConstants.ScanRequestCode);
                     } else {
                         // Oups permission denied
-                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -163,6 +166,6 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
     @Override
     public void showCurrentTechIndex(String currentTechIndex) {
-        tvCurrentPostIndex.setText("Текущий тех индекс : " + currentTechIndex);
+        tvCurrentPostIndex.setText(currentPostIndexLabel + currentTechIndex);
     }
 }
