@@ -11,6 +11,7 @@ public class AppConstants {
     public static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
 
 
-    public static final String BASE_URL = "https://bot.post.kz/api/";
+//    public static final String BASE_URL = "https://bot.post.kz/api/";
+    public static final String BASE_URL = "http://pls-test.post.kz";
 
 }

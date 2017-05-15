@@ -8,9 +8,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import kazpost.kz.supermarket.data.network.ApiHelper;
+import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import kazpost.kz.supermarket.data.prefs.PreferencesHelper;
 import kazpost.kz.supermarket.di.ApplicationContext;
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -56,4 +58,10 @@ public class AppDataManager implements DataManager {
     public Observable<List<TechIndex>> getTechIndexList() {
         return mApiHelper.getTechIndexList();
     }
+
+    @Override
+    public Observable<ResponseBody> sendData(SendData sendData) {
+        return mApiHelper.sendData(sendData);
+    }
+
 }

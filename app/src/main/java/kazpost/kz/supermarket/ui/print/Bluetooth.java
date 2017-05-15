@@ -30,13 +30,7 @@ public class Bluetooth extends AppCompatActivity {
         message = (EditText)findViewById(R.id.message);
         printbtn = (Button)findViewById(R.id.printButton);
 
-        printbtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                connect();
-            }
-        });
+        printbtn.setOnClickListener(v -> connect());
     }
 
     protected void connect() {

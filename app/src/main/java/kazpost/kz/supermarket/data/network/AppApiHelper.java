@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -26,5 +28,10 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<List<TechIndex>> getTechIndexList() {
         return networkService.getTechIndexList();
+    }
+
+    @Override
+    public Observable<ResponseBody> sendData(SendData sendData) {
+        return networkService.sendData(sendData);
     }
 }

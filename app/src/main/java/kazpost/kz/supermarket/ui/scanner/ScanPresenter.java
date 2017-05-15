@@ -37,6 +37,11 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 
     }
 
+    @Override
+    public void sendData(String barcode, String row, String cell) {
+
+    }
+
     private void showCell(String s) {
         getMvpView().onError(s);
         getMvpView().hideLoading();

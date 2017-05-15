@@ -31,11 +31,14 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     @BindView(R.id.et_postcode)
     EditText etScanActivity;
     @BindView(R.id.et_row)
-    EditText etScanBag;
+    EditText etScanRow;
     @BindView(R.id.btn_scan)
     FloatingActionButton btnScan;
     @BindView(R.id.et_cell)
     EditText etCell;
+
+    String cell, row, barcode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,25 +74,30 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                     String result = data.getStringExtra(ZXingConstants.ScanResult);
 //                    etScanActivity.setText(result);
 
-//                    etScanBag.setVisibility(View.VISIBLE);
-//                    etScanBag.requestFocus();
+//                    etScanRow.setVisibility(View.VISIBLE);
+//                    etScanRow.requestFocus();
 
                     if (etScanActivity.hasFocus()) {
+
+                        barcode = result;
+
                         etScanActivity.setText(result);
-                        etScanBag.requestFocus();
+                        etScanRow.requestFocus();
                         break;
                     }
 
-                    if (etScanBag.hasFocus()) {
-                        etScanBag.setText(result);
+                    if (etScanRow.hasFocus()) {
+
+                        row = result.substring(0, 1);
+                        etScanRow.setText(row);
+
+                        cell = result.substring(1);
+                        etCell.setText(cell);
+
                         etCell.requestFocus();
                         break;
                     }
 
-                    if (etCell.hasFocus()) {
-                        etCell.setText(result);
-                        break;
-                    }
 
                 } else if (resultCode == ZXingConstants.ScanHistoryResultCode) {
                     String resultHistory = data.getStringExtra(ZXingConstants.ScanHistoryResult);
@@ -115,6 +123,8 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         if (id == R.id.menu_item) {
             startActivity(this, new ChooseIndexActivity());
             return true;
+        } else if (id == R.id.menu_send_data) {
+            presenter.sendData(barcode, row, cell);
         }
 
         return super.onOptionsItemSelected(item);
