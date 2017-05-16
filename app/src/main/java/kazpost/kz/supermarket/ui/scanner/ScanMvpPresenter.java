@@ -10,7 +10,7 @@ import kazpost.kz.supermarket.ui.base.MvpPresenter;
 @PerActivity
 public interface ScanMvpPresenter<V extends ScanMvpView> extends MvpPresenter<V> {
 
-    void onScan(String number);
+    void checkIfPostIndexExist();
 
     void sendData(String barcode, String row, String cell);
 

@@ -25,12 +25,6 @@ import kazpost.kz.supermarket.di.PerActivity;
 import kazpost.kz.supermarket.ui.chooseindex.ChooseIndexMvpPresenter;
 import kazpost.kz.supermarket.ui.chooseindex.ChooseIndexMvpView;
 import kazpost.kz.supermarket.ui.chooseindex.ChooseIndexPresenter;
-import kazpost.kz.supermarket.ui.closecell.CloseCellMvpPresenter;
-import kazpost.kz.supermarket.ui.closecell.CloseCellMvpView;
-import kazpost.kz.supermarket.ui.closecell.CloseCellPresenter;
-import kazpost.kz.supermarket.ui.main.MainMvpPresenter;
-import kazpost.kz.supermarket.ui.main.MainMvpView;
-import kazpost.kz.supermarket.ui.main.MainPresenter;
 import kazpost.kz.supermarket.ui.scanner.ScanMvpPresenter;
 import kazpost.kz.supermarket.ui.scanner.ScanMvpView;
 import kazpost.kz.supermarket.ui.scanner.ScanPresenter;
@@ -61,20 +55,6 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView>
-                                                               presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @PerActivity
-    CloseCellMvpPresenter<CloseCellMvpView> provideCloseCellPresenter(CloseCellPresenter<CloseCellMvpView>
-                                                                              presenter) {
-        return presenter;
-    }
-
-    @Provides
-    @PerActivity
     ScanMvpPresenter<ScanMvpView> provideScanPresenter(ScanPresenter<ScanMvpView> presenter) {
         return presenter;
     }
@@ -82,7 +62,7 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    ChooseIndexMvpPresenter<ChooseIndexMvpView> provideChooseIndexPresenter(ChooseIndexPresenter<ChooseIndexMvpView> presenter){
+    ChooseIndexMvpPresenter<ChooseIndexMvpView> provideChooseIndexPresenter(ChooseIndexPresenter<ChooseIndexMvpView> presenter) {
         return presenter;
     }
 }

@@ -31,7 +31,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     ScanMvpPresenter<ScanMvpView> presenter;
 
     @BindView(R.id.et_postcode)
-    EditText etScanActivity;
+    EditText etPostCode;
     @BindView(R.id.et_row)
     EditText etScanRow;
     @BindView(R.id.btn_scan)
@@ -55,7 +55,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         getActivityComponent().inject(this);
         presenter.onAttach(ScanActivity.this);
 
-
+        presenter.checkIfPostIndexExist();
     }
 
     @Override
@@ -65,14 +65,85 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     }
 
     @OnTextChanged(R.id.et_postcode)
-    public void onScan() {
-//        presenter.onScan(etScanActivity.getText().toString());
+    public void onPostcodeChange() {
+        barcode = etPostCode.getText().toString();
+//        presenter.onScan(etPostCode.getText().toString());
+    }
+
+    @OnTextChanged(R.id.et_row)
+    public void onRowChanged() {
+        row = etScanRow.getText().toString();
+    }
+
+    @OnTextChanged(R.id.et_cell)
+    public void onCellChanged() {
+        cell = etCell.getText().toString();
     }
 
     @Override
     public void clearEditText() {
-        etScanActivity.setText("");
+        etPostCode.setText("");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.scan_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_item) {
+            startActivity(this, new ChooseIndexActivity());
+            return true;
+        } else if (id == R.id.menu_send_data) {
+
+            if (barcode == null) barcode = etPostCode.getText().toString();
+            if (row == null) row = etScanRow.getText().toString();
+            if (cell == null) cell = etCell.getText().toString();
+
+
+            presenter.sendData(barcode, row, cell);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.btn_scan)
+    public void onViewClicked() {
+        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
+        // Must be done during an initialization phase like onCreate
+        rxPermissions
+                .request(Manifest.permission.CAMERA)
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+                        // I can control the camera now
+//                        Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(this, CaptureActivity.class);
+                        intent.putExtra(ZXingConstants.ScanIsShowHistory, true);
+                        startActivityForResult(intent, ZXingConstants.ScanRequestCode);
+                    } else {
+                        // Oups permission denied
+                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    @Override
+    public void showCurrentTechIndex(String currentTechIndex) {
+        tvCurrentPostIndex.setText(currentPostIndexLabel + " " + currentTechIndex);
+    }
+
+    @Override
+    public void startChooseIndexActivity() {
+        startActivity(this, new ChooseIndexActivity());
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -85,11 +156,11 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 if (resultCode == ZXingConstants.ScanRequestCode) {
                     String result = data.getStringExtra(ZXingConstants.ScanResult);
 
-                    if (etScanActivity.hasFocus()) {
+                    if (etPostCode.hasFocus()) {
 
                         barcode = result;
 
-                        etScanActivity.setText(result);
+                        etPostCode.setText(result);
                         etScanRow.requestFocus();
                         break;
                     }
@@ -117,57 +188,4 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.scan_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_item) {
-            startActivity(this, new ChooseIndexActivity());
-            return true;
-        } else if (id == R.id.menu_send_data) {
-
-            if (barcode == null) barcode = etScanActivity.getText().toString();
-            if (row == null) row = etScanRow.getText().toString();
-            if (cell == null) cell = etCell.getText().toString();
-
-
-            presenter.sendData(barcode, row, cell);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.btn_scan)
-    public void onViewClicked() {
-        RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity instance
-        // Must be done during an initialization phase like onCreate
-        rxPermissions
-                .request(Manifest.permission.CAMERA)
-                .subscribe(granted -> {
-                    if (granted) { // Always true pre-M
-                        // I can control the camera now
-//                        Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(this, CaptureActivity.class);
-                        intent.putExtra(ZXingConstants.ScanIsShowHistory, true);
-                        startActivityForResult(intent, ZXingConstants.ScanRequestCode);
-                    } else {
-                        // Oups permission denied
-//                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-    }
-
-    @Override
-    public void showCurrentTechIndex(String currentTechIndex) {
-        tvCurrentPostIndex.setText(currentPostIndexLabel + currentTechIndex);
-    }
 }

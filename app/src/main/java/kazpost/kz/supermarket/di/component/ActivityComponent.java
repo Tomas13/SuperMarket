@@ -20,8 +20,6 @@ import dagger.Component;
 import kazpost.kz.supermarket.di.PerActivity;
 import kazpost.kz.supermarket.di.module.ActivityModule;
 import kazpost.kz.supermarket.ui.chooseindex.ChooseIndexActivity;
-import kazpost.kz.supermarket.ui.closecell.CloseCellActivity;
-import kazpost.kz.supermarket.ui.main.MainActivity;
 import kazpost.kz.supermarket.ui.scanner.ScanActivity;
 
 /**
@@ -31,11 +29,6 @@ import kazpost.kz.supermarket.ui.scanner.ScanActivity;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-
-    void inject(MainActivity activity);
-
-
-    void inject(CloseCellActivity activity);
 
     void inject(ScanActivity activity);
 

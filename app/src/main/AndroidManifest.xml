@@ -15,9 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity" />
         <activity
             android:name=".ui.scanner.ScanActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.closecell.CloseCellActivity" />
-        <activity android:name=".ui.print.PrintActivity" />
-        <activity android:name=".ui.print.BTDeviceListActivity"></activity>
-        <activity android:name=".ui.print.Bluetooth">
-
-        </activity>
-        <activity android:name=".ui.chooseindex.ChooseIndexActivity">
+        <activity
+            android:name=".ui.chooseindex.ChooseIndexActivity"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>

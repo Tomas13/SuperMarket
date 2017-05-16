@@ -45,7 +45,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public int getSpinnerPosition() {
-        return mPrefs.getInt(PREF_KEY_SPINNER_POSITION, 0);
+        return mPrefs.getInt(PREF_KEY_SPINNER_POSITION, -1);
     }
 
 }

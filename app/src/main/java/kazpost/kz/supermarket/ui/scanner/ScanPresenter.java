@@ -26,19 +26,13 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
         super(dataManager);
     }
 
-    Subscription subscription;
 
     @Override
-    public void onScan(String number) {
+    public void checkIfPostIndexExist() {
 
-        getMvpView().showLoading();
-
-        Observable<Long> observable = Observable.interval(3, TimeUnit.SECONDS);
-        subscription = observable.observeOn(AndroidSchedulers.mainThread()).subscribe(o -> {
-            showCell(number);
-        });
-
-
+        if (getDataManager().getSpinnerPosition() == -1){
+            getMvpView().startChooseIndexActivity();
+        }
     }
 
     @Override
@@ -76,9 +70,4 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
         getMvpView().showCurrentTechIndex(getDataManager().getPostIndex());
     }
 
-    private void showCell(String s) {
-        getMvpView().onError(s);
-        getMvpView().hideLoading();
-        subscription.unsubscribe();
-    }
 }

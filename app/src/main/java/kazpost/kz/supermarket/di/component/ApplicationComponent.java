@@ -18,7 +18,6 @@ package kazpost.kz.supermarket.di.component;
 import android.app.Application;
 import android.content.Context;
 
-
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -37,7 +36,6 @@ import kazpost.kz.supermarket.di.module.ApplicationModule;
 public interface ApplicationComponent {
 
     void inject(MyApp app);
-
 
     @ApplicationContext
     Context context();

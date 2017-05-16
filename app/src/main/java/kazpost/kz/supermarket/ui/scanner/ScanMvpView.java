@@ -12,4 +12,7 @@ public interface ScanMvpView extends MvpView {
 
     void showCurrentTechIndex(String currentTechIndex);
 
+
+    void startChooseIndexActivity();
+
 }
