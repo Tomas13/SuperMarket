@@ -5,7 +5,9 @@ package kazpost.kz.supermarket.data.network.model;
  */
 
 public class SendData {
-    String barcode, row, cell, index;
+    String barcode, row, cell, index, access ="939ae3ec-a906-487c-a5d5-dabd0c3a52c3";
+
+
 
     public String getBarcode() {
         return barcode;

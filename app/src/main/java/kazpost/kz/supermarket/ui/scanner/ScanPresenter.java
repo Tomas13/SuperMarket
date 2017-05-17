@@ -2,6 +2,8 @@ package kazpost.kz.supermarket.ui.scanner;
 
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -46,19 +48,29 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
         sendData.setCell(cell);
         sendData.setIndex(getDataManager().getPostIndex());
 
+        Map<String, String> params = new HashMap<>();
+        params.put("access", "939ae3ec-a906-487c-a5d5-dabd0c3a52c3");
+        params.put("barcode", barcode);
+        params.put("row", row);
+        params.put("cell", cell);
+        params.put("index", getDataManager().getPostIndex());
 
-        Observable<ResponseBody> sendDataObservable = getDataManager().sendData(sendData);
+
+        Observable<ResponseBody> sendDataObservable = getDataManager().sendData(params);
 
         sendDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(responseBody -> {
+                            getMvpView().onErrorToast(responseBody.toString());
 
                             Log.d("ScanPresenter", responseBody.toString());
                             getMvpView().hideLoading();
 
                         },
                         throwable -> {
+
+
                             getMvpView().onErrorToast(throwable.getMessage());
                             getMvpView().hideLoading();
                         }

@@ -3,6 +3,7 @@ package kazpost.kz.supermarket.data;
 import android.content.Context;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -55,8 +56,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<ResponseBody> sendData(SendData sendData) {
-        return mApiHelper.sendData(sendData);
+    public Observable<ResponseBody> sendData(Map<String, String> stringMap) {
+        return mApiHelper.sendData(stringMap);
     }
 
     @Override

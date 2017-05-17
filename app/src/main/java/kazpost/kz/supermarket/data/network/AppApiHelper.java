@@ -1,6 +1,8 @@
 package kazpost.kz.supermarket.data.network;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,7 +33,8 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<ResponseBody> sendData(SendData sendData) {
-        return networkService.sendData(sendData);
+    public Observable<ResponseBody> sendData(Map<String, String> stringMap) {
+        return networkService.sendData(stringMap);
     }
+
 }

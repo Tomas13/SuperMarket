@@ -1,6 +1,7 @@
 package kazpost.kz.supermarket.data.network;
 
 import java.util.List;
+import java.util.Map;
 
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
@@ -15,5 +16,5 @@ public interface ApiHelper {
 
     Observable<List<TechIndex>> getTechIndexList();
 
-    Observable<ResponseBody> sendData(SendData sendData);
+    Observable<ResponseBody> sendData(Map<String, String> stringMap);
 }
