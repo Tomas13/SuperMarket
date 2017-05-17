@@ -3,6 +3,7 @@ package kazpost.kz.supermarket.data.network;
 import java.util.List;
 import java.util.Map;
 
+import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import okhttp3.ResponseBody;
@@ -26,7 +27,7 @@ public interface NetworkService {
 
 
     @GET("http://pls-test.post.kz/api/mobile/save-supermarket-cell")
-    Observable<ResponseBody> sendData(
+    Observable<Response> sendData(
             @QueryMap Map<String, String> params);
 
 }

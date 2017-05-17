@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import okhttp3.ResponseBody;
@@ -33,7 +34,7 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<ResponseBody> sendData(Map<String, String> stringMap) {
+    public Observable<Response> sendData(Map<String, String> stringMap) {
         return networkService.sendData(stringMap);
     }
 

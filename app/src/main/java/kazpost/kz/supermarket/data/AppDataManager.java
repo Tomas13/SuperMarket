@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import kazpost.kz.supermarket.data.network.ApiHelper;
+import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import kazpost.kz.supermarket.data.prefs.PreferencesHelper;
@@ -56,7 +57,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<ResponseBody> sendData(Map<String, String> stringMap) {
+    public Observable<Response> sendData(Map<String, String> stringMap) {
         return mApiHelper.sendData(stringMap);
     }
 

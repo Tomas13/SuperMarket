@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import kazpost.kz.supermarket.data.DataManager;
+import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.ui.base.BasePresenter;
 import okhttp3.ResponseBody;
@@ -56,13 +57,14 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
         params.put("index", getDataManager().getPostIndex());
 
 
-        Observable<ResponseBody> sendDataObservable = getDataManager().sendData(params);
+        Observable<Response> sendDataObservable = getDataManager().sendData(params);
 
         sendDataObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(responseBody -> {
-                            getMvpView().onErrorToast(responseBody.toString());
+                            getMvpView().onErrorToast(responseBody.getMessage());
+
 
                             Log.d("ScanPresenter", responseBody.toString());
                             getMvpView().hideLoading();
