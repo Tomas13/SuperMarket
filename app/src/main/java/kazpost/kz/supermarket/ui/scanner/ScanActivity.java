@@ -14,6 +14,9 @@ import com.baozi.Zxing.CaptureActivity;
 import com.baozi.Zxing.ZXingConstants;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 import butterknife.BindString;
@@ -67,7 +70,6 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     @OnTextChanged(R.id.et_postcode)
     public void onPostcodeChange() {
         barcode = etPostCode.getText().toString();
-//        presenter.onScan(etPostCode.getText().toString());
     }
 
     @OnTextChanged(R.id.et_row)
@@ -105,11 +107,34 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
             if (row == null) row = etScanRow.getText().toString();
             if (cell == null) cell = etCell.getText().toString();
 
-
-            presenter.sendData(barcode, row, cell);
+            checkValues();
+            
+/*
+            if (checkValues()) {
+                presenter.sendData(barcode, row, cell);
+            }
+*/
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean checkValues() {
+       
+
+
+        Pattern mPattern = Pattern.compile("^([1-9][0-9]{1,4})$");
+        Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
+
+        Matcher matcher = mPatternBar.matcher(barcode);
+        
+        if (matcher.find()){
+            Toast.makeText(this, "true", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "false", Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
     }
 
     @OnClick(R.id.btn_scan)

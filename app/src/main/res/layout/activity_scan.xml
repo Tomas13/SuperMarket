@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:inputType="numberDecimal"
             android:background="@drawable/edit_text_background"
             android:hint="номер ряда"
             android:imeOptions="flagNoFullscreen"
@@ -70,6 +71,7 @@
         <EditText
             android:id="@+id/et_cell"
             android:layout_width="0dp"
+            android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
