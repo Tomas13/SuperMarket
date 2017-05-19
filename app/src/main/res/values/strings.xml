@@ -32,4 +32,6 @@
     <string name="btn_close">Закрыть</string>
     <string name="scan_title">Сканируйте или введите данные</string>
     <string name="current_post_index">Текущий почтовый индекс: </string>
+
+    <string name="nonvalid_data">Формат введенных данных не верен</string>
 </resources>

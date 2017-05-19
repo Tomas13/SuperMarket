@@ -48,6 +48,8 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     String currentPostIndexLabel;
     String cell, row, barcode;
 
+    @BindString(R.string.nonvalid_data)
+    String nonvalidData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,34 +109,35 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
             if (row == null) row = etScanRow.getText().toString();
             if (cell == null) cell = etCell.getText().toString();
 
-            checkValues();
-            
-/*
             if (checkValues()) {
                 presenter.sendData(barcode, row, cell);
             }
-*/
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private boolean checkValues() {
-       
 
 
-        Pattern mPattern = Pattern.compile("^([1-9][0-9]{1,4})$");
+        Pattern mPatternRow = Pattern.compile("^([1-9]{1})$");
+        Pattern mPatternCell = Pattern.compile("^([0-9]{3})$");
+
         Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
 
         Matcher matcher = mPatternBar.matcher(barcode);
-        
-        if (matcher.find()){
-            Toast.makeText(this, "true", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, "false", Toast.LENGTH_SHORT).show();
+
+        Matcher matcherRow = mPatternRow.matcher(row);
+        Matcher matcherCell = mPatternCell.matcher(cell);
+
+        if (matcher.find() & matcherRow.find() & matcherCell.find()) {
+            return true;
+        } else {
+
+            onErrorToast(nonvalidData);
+            return false;
         }
 
-        return true;
     }
 
     @OnClick(R.id.btn_scan)
