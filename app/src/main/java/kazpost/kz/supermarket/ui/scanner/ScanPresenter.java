@@ -31,10 +31,13 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 
 
     @Override
-    public void checkIfPostIndexExist() {
+    public boolean checkIfPostIndexExist() {
 
         if (getDataManager().getSpinnerPosition() == -1){
             getMvpView().startChooseIndexActivity();
+            return false;
+        }else{
+            return true;
         }
     }
 

@@ -105,12 +105,17 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
             return true;
         } else if (id == R.id.menu_send_data) {
 
-            if (barcode == null) barcode = etPostCode.getText().toString();
-            if (row == null) row = etScanRow.getText().toString();
-            if (cell == null) cell = etCell.getText().toString();
+            if (presenter.checkIfPostIndexExist()){
 
-            if (checkValues()) {
-                presenter.sendData(barcode, row, cell);
+                if (barcode == null) barcode = etPostCode.getText().toString();
+                if (row == null) row = etScanRow.getText().toString();
+                if (cell == null) cell = etCell.getText().toString();
+
+                if (checkValues()) {
+                    presenter.sendData(barcode, row, cell);
+                }
+            }else{
+                onErrorToast("Не выбран почтовый индекс");
             }
         }
 
