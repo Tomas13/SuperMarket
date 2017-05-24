@@ -60,39 +60,34 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:inputType="numberDecimal"
             android:background="@drawable/edit_text_background"
-            android:hint="номер ряда"
+            android:hint="ряд и ячейка"
             android:imeOptions="flagNoFullscreen"
+            android:inputType="numberDecimal"
             android:padding="3dp"
             android:visibility="visible" />
 
-
-        <EditText
-            android:id="@+id/et_cell"
-            android:layout_width="0dp"
-            android:inputType="numberDecimal"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/edit_text_background"
-            android:hint="номер ячейки"
-            android:imeOptions="flagNoFullscreen"
-            android:padding="3dp"
-            android:visibility="visible" />
     </LinearLayout>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_scan"
-        android:layout_width="196dp"
-        android:layout_height="196dp"
-        android:layout_alignEnd="@+id/et_postcode"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/et_postcode"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/scan" />
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_row_cell">
+
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/scan" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/send" />
+    </LinearLayout>
 </RelativeLayout>

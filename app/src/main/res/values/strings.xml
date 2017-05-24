@@ -34,4 +34,6 @@
     <string name="current_post_index">Текущий почтовый индекс: </string>
 
     <string name="nonvalid_data">Формат введенных данных не верен</string>
+    <string name="scan">Сканировать</string>
+    <string name="send">Отправить</string>
 </resources>

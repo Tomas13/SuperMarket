@@ -8,11 +8,11 @@
         android:icon="@android:drawable/ic_menu_manage"
         android:title="Смена тех индекса"
         app:showAsAction="ifRoom" />
-
+<!--
     <item
         android:id="@+id/menu_send_data"
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_send"
         android:title="Отправить"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
 </menu>
