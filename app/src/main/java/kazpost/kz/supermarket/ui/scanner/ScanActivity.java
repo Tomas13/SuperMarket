@@ -83,16 +83,16 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
     private void setStrings(String value) {
 
-        if (value.length() == 4 && isRow(value)) {
-            row = value.substring(0, 1);
-            cell = value.substring(1);
-
-
-
+        if (value.length() >= 4 && value.length() <= 5 ) {
+            row = value.substring(0, value.length() - 3);
+            cell = value.substring(value.length() - 3);
         }
 
-        if (value.length() == 13 && isBarcode(value)) {
+//        if (value.length() == 13 && isBarcode(value)) {
+//            barcode = value;
+//        }
 
+        if (value.length() > 6) {
             barcode = value;
         }
     }
@@ -106,7 +106,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     }
 
     private boolean isRow(String value) {
-        Pattern mPatternRow = Pattern.compile("^([0-9]{4})$");
+        Pattern mPatternRow = Pattern.compile("^([0-9]{4,5})$");
         Matcher matcher = mPatternRow.matcher(value);
 
         return matcher.find();
@@ -137,10 +137,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
                     setStrings(result);
 
-
                     if (etPostCode.hasFocus()) {
-
-//                        setStrings(etPostCode.getText().toString());
 
                         etPostCode.setText(result);
                         etScanRow.requestFocus();
@@ -149,15 +146,13 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
                     if (etScanRow.hasFocus()) {
 
-//                        setStrings(etScanRow.getText().toString());
-
                         etScanRow.setText(result);
                         break;
                     }
 
 
-                } else if (resultCode == ZXingConstants.ScanHistoryResultCode) {
-                    String resultHistory = data.getStringExtra(ZXingConstants.ScanHistoryResult);
+//                } else if (resultCode == ZXingConstants.ScanHistoryResultCode) {
+//                    String resultHistory = data.getStringExtra(ZXingConstants.ScanHistoryResult);
 //                    if (!TextUtils.isEmpty(resultHistory)) {
 //                        startActivity(new Intent(MainActivity.this,HistoryActivity.class));
 //                    }
@@ -191,12 +186,12 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
             case R.id.btn_send:
                 if (presenter.checkIfPostIndexExist()) {
 
-                    if (barcode == null) barcode = etPostCode.getText().toString();
-                    if (row == null) row = etScanRow.getText().toString();
+//                    if (barcode == null) barcode = etPostCode.getText().toString();
+//                    if (row == null) row = etScanRow.getText().toString();
 
-//                    if (checkValues()) {
-                    presenter.sendData(barcode, row, cell);
-//                    }
+                    if (checkValues()) {
+                        presenter.sendData(barcode, row, cell);
+                    }
                 } else {
                     onErrorToast("Не выбран почтовый индекс");
                 }
@@ -207,12 +202,12 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
 
     private boolean checkValues() {
-        Pattern mPatternRow = Pattern.compile("^([0-9]{4})$");
+        Pattern mPatternRow = Pattern.compile("^([0-9]{4,5})$");
         Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
         Matcher matcher = mPatternBar.matcher(barcode);
         Matcher matcherRow = mPatternRow.matcher(row + cell);
 
-        if (matcher.find() & matcherRow.find()) {
+        if (matcher.find() && matcherRow.find()) {
             return true;
         } else {
 
