@@ -1,10 +1,8 @@
 package kazpost.kz.supermarket.ui.scanner;
 
-import android.util.Log;
-
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -12,11 +10,8 @@ import kazpost.kz.supermarket.data.DataManager;
 import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.ui.base.BasePresenter;
-import okhttp3.ResponseBody;
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created by root on 4/17/17.
@@ -33,10 +28,10 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
     @Override
     public boolean checkIfPostIndexExist() {
 
-        if (getDataManager().getSpinnerPosition() == -1){
+        if (getDataManager().getSpinnerPosition() == -1) {
             getMvpView().startChooseIndexActivity();
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -60,26 +55,42 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
         params.put("index", getDataManager().getPostIndex());
 
 
-        Observable<Response> sendDataObservable = getDataManager().sendData(params);
+        Call<Response> responseCall = getDataManager().sendCallData(params);
 
-        sendDataObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseBody -> {
-                            getMvpView().onErrorToast(responseBody.getMessage());
+        responseCall.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
 
 
-                            Log.d("ScanPresenter", responseBody.toString());
-                            getMvpView().hideLoading();
+                String value = null;
+                try {
+                    value = response.errorBody().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                value = value.substring(1, value.length() - 1);           //remove curly brackets
+                String[] keyValuePairs = value.split(",");              //split the string to creat key-value pairs
+                Map<String, String> map = new HashMap<>();
 
-                        },
-                        throwable -> {
+                for (String pair : keyValuePairs)                        //iterate over the pairs
+                {
+                    String[] entry = pair.split(":");                   //split the pairs to get key and value
+                    map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+                }
 
 
-                            getMvpView().onErrorToast(throwable.getMessage());
-                            getMvpView().hideLoading();
-                        }
-                );
+                getMvpView().onErrorToast(map.get("\"message\""));
+                getMvpView().hideLoading();
+            }
+
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                getMvpView().onErrorToast("Status " + t.getMessage());
+                getMvpView().hideLoading();
+
+            }
+        });
+
     }
 
     @Override

@@ -15,6 +15,7 @@ import kazpost.kz.supermarket.data.network.model.TechIndex;
 import kazpost.kz.supermarket.data.prefs.PreferencesHelper;
 import kazpost.kz.supermarket.di.ApplicationContext;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -59,6 +60,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<Response> sendData(Map<String, String> stringMap) {
         return mApiHelper.sendData(stringMap);
+    }
+
+    @Override
+    public Call<Response> sendCallData(Map<String, String> stringMap) {
+        return mApiHelper.sendCallData(stringMap);
     }
 
     @Override

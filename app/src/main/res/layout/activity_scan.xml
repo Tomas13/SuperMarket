@@ -63,7 +63,6 @@
             android:background="@drawable/edit_text_background"
             android:hint="ряд и ячейка"
             android:imeOptions="flagNoFullscreen"
-            android:inputType="numberDecimal"
             android:padding="3dp"
             android:visibility="visible" />
 

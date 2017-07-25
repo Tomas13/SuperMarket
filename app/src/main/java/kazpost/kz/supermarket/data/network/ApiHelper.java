@@ -7,6 +7,7 @@ import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -18,4 +19,6 @@ public interface ApiHelper {
     Observable<List<TechIndex>> getTechIndexList();
 
     Observable<Response> sendData(Map<String, String> stringMap);
+
+    Call<Response> sendCallData(Map<String, String> stringMap);
 }

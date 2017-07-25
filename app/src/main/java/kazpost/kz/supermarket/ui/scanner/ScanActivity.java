@@ -70,60 +70,48 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         presenter.showCurrentTechIndex();
     }
 
+
     @OnTextChanged(R.id.et_postcode)
     public void onPostcodeChange() {
-        barcode = etPostCode.getText().toString();
+        setStrings(etPostCode.getText().toString());
     }
 
     @OnTextChanged(R.id.et_row)
     public void onRowChanged() {
-        String result = etScanRow.getText().toString();
-
-        row = result.substring(0, 1);
-        cell = result.substring(1);
+        setStrings(etScanRow.getText().toString());
     }
 
-    @Override
-    public void clearEditText() {
-        etPostCode.setText("");
-    }
+    private void setStrings(String value) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.scan_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+        if (value.length() == 4 && isRow(value)) {
+            row = value.substring(0, 1);
+            cell = value.substring(1);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_item) {
-            startActivity(this, new ChooseIndexActivity());
-            return true;
+
         }
 
-        return super.onOptionsItemSelected(item);
+        if (value.length() == 13 && isBarcode(value)) {
+
+            barcode = value;
+        }
     }
 
-    private boolean checkValues() {
 
-
-        Pattern mPatternRow = Pattern.compile("^([0-9]{4})$");
+    private boolean isBarcode(String value) {
         Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
-        Matcher matcher = mPatternBar.matcher(barcode);
-        Matcher matcherRow = mPatternRow.matcher(row + cell);
+        Matcher matcher = mPatternBar.matcher(value);
 
-        if (matcher.find() & matcherRow.find()) {
-            return true;
-        } else {
-
-            onErrorToast(nonvalidData);
-            return false;
-        }
-
+        return matcher.find();
     }
+
+    private boolean isRow(String value) {
+        Pattern mPatternRow = Pattern.compile("^([0-9]{4})$");
+        Matcher matcher = mPatternRow.matcher(value);
+
+        return matcher.find();
+    }
+
 
     @Override
     public void showCurrentTechIndex(String currentTechIndex) {
@@ -147,9 +135,12 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 if (resultCode == ZXingConstants.ScanRequestCode) {
                     String result = data.getStringExtra(ZXingConstants.ScanResult);
 
+                    setStrings(result);
+
+
                     if (etPostCode.hasFocus()) {
 
-                        barcode = result;
+//                        setStrings(etPostCode.getText().toString());
 
                         etPostCode.setText(result);
                         etScanRow.requestFocus();
@@ -158,9 +149,9 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
                     if (etScanRow.hasFocus()) {
 
-                        row = result.substring(0, 1);
-                        cell = result.substring(1);
-                        etScanRow.setText(row + cell);
+//                        setStrings(etScanRow.getText().toString());
+
+                        etScanRow.setText(result);
                         break;
                     }
 
@@ -203,9 +194,9 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                     if (barcode == null) barcode = etPostCode.getText().toString();
                     if (row == null) row = etScanRow.getText().toString();
 
-                    if (checkValues()) {
-                        presenter.sendData(barcode, row, cell);
-                    }
+//                    if (checkValues()) {
+                    presenter.sendData(barcode, row, cell);
+//                    }
                 } else {
                     onErrorToast("Не выбран почтовый индекс");
                 }
@@ -213,4 +204,46 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 break;
         }
     }
+
+
+    private boolean checkValues() {
+        Pattern mPatternRow = Pattern.compile("^([0-9]{4})$");
+        Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
+        Matcher matcher = mPatternBar.matcher(barcode);
+        Matcher matcherRow = mPatternRow.matcher(row + cell);
+
+        if (matcher.find() & matcherRow.find()) {
+            return true;
+        } else {
+
+            onErrorToast(nonvalidData);
+            return false;
+        }
+
+    }
+
+    @Override
+    public void clearEditText() {
+        etPostCode.setText("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.scan_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_item) {
+            startActivity(this, new ChooseIndexActivity());
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

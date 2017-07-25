@@ -7,6 +7,7 @@ import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -29,5 +30,10 @@ public interface NetworkService {
     @GET("http://pls-test.post.kz/api/mobile/save-supermarket-cell")
     Observable<Response> sendData(
             @QueryMap Map<String, String> params);
+
+    @GET("http://pls-test.post.kz/api/mobile/save-supermarket-cell")
+    Call<Response> sendCallData(
+            @QueryMap Map<String, String> params);
+
 
 }

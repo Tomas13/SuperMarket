@@ -11,6 +11,7 @@ import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.data.network.model.TechIndex;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import rx.Observable;
 
 /**
@@ -36,6 +37,11 @@ public class AppApiHelper implements ApiHelper {
     @Override
     public Observable<Response> sendData(Map<String, String> stringMap) {
         return networkService.sendData(stringMap);
+    }
+
+    @Override
+    public Call<Response> sendCallData(Map<String, String> stringMap) {
+        return networkService.sendCallData(stringMap);
     }
 
 }
