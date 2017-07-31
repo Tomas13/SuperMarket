@@ -86,6 +86,10 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         if (value.length() >= 4 && value.length() <= 5 ) {
             row = value.substring(0, value.length() - 3);
             cell = value.substring(value.length() - 3);
+        }else{
+//            onErrorToast(nonvalidData);
+            row = "0";
+            cell = "0";
         }
 
 //        if (value.length() == 13 && isBarcode(value)) {
@@ -147,6 +151,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                     if (etScanRow.hasFocus()) {
 
                         etScanRow.setText(result);
+                        etPostCode.requestFocus();
                         break;
                     }
 
