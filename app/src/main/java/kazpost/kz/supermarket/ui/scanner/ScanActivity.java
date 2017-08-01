@@ -83,17 +83,14 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
     private void setStrings(String value) {
 
-        if (value.length() >= 4 && value.length() <= 5 ) {
+        if (value.length() >= 4 && value.length() <= 5) {
             row = value.substring(0, value.length() - 3);
             cell = value.substring(value.length() - 3);
-        }else{
-//            onErrorToast(nonvalidData);
-            row = "0";
-            cell = "0";
         }
 
-//        if (value.length() == 13 && isBarcode(value)) {
-//            barcode = value;
+//        if (value.length() < 4) {
+//            row = "0";
+//            cell = "0";
 //        }
 
         if (value.length() > 6) {
@@ -189,6 +186,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                         });
                 break;
             case R.id.btn_send:
+
                 if (presenter.checkIfPostIndexExist()) {
 
 //                    if (barcode == null) barcode = etPostCode.getText().toString();
