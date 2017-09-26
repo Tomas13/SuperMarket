@@ -12,6 +12,24 @@
     </item>
     <item
         is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-android/2.7.22/580a773656780bf0a5b5be75e4aefed37bbbea8f/mockito-android-2.7.22.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="580a773656780bf0a5b5be75e4aefed37bbbea8f">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/mockito-android-2.7.22_1676f8b895d92fb043fd74361cfc79943d45b04a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-android/1.6.5/40c25a11d65fd6cda13eb5df3e5258d941ed1bc3/byte-buddy-android-1.6.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="40c25a11d65fd6cda13eb5df3e5258d941ed1bc3">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/byte-buddy-android-1.6.5_d61f4a1c773e4537c430a76190554ec1ccff4eb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/jean/Desktop/SuperMarket/libraryzxing/build/intermediates/bundles/default/libs/zxing.jar"
         jumboMode="false"
         optimize="true"
@@ -21,12 +39,66 @@
     </item>
     <item
         is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.jakewharton.android.repackaged/dalvik-dx/1/5344672f614ef1df39f7a9d88a5aa0e44d74d4d9/dalvik-dx-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5344672f614ef1df39f7a9d88a5aa0e44d74d4d9">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/dalvik-dx-1_d26ab8a66aa510c79d424f2f3937e7ec3c183f3b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.6.11/200d9c012befccd211ff91082a151257b1dc084/byte-buddy-agent-1.6.11.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0200d9c012befccd211ff91082a151257b1dc084">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/byte-buddy-agent-1.6.11_ecaeda1c9401f30e265fb0b2edc6be7f40fe66d5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.6.11/8a8f9409e27f1d62c909c7eef2aa7b3a580b4901/byte-buddy-1.6.11.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8a8f9409e27f1d62c909c7eef2aa7b3a580b4901">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/byte-buddy-1.6.11_fe58e6ac24f4cc32ee4b4695d3866af1f966a9a5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.5/612ecb799912ccf77cba9b3ed8c813da086076e9/objenesis-2.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="612ecb799912ccf77cba9b3ed8c813da086076e9">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/objenesis-2.5_b4781a539bbb6129c033bf43846b77684fb79db0.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/jean/Desktop/SuperMarket/app/libs/DataCollection.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="df095f25878dd6b78e200cd3f27f038668b45394">
         <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/debug/DataCollection_056721d3e54d51f26f8dbfaa9600e47a036c9524.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.jakewharton.android.repackaged/libcore-dex/2/1d3c98644912295ca8cb80069b1cdea4389085b2/libcore-dex-2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1d3c98644912295ca8cb80069b1cdea4389085b2">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/libcore-dex-2_3d4bb51fc55cb6a1b1e3e590ca74cec44b15b336.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.7.22/fcf63bc8010ca77991e3cadd8d33ad1a40603404/mockito-core-2.7.22.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="fcf63bc8010ca77991e3cadd8d33ad1a40603404">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/mockito-core-2.7.22_d956d4d96f9ebbe25daca0e8a69787e7271210ca.jar" />
     </item>
 
 </items>

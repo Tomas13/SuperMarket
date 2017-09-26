@@ -43,6 +43,22 @@ public final class CommonUtils {
         // This utility class is not publicly instantiable
     }
 
+    public static boolean isBarcode(String value) {
+        Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
+        Matcher matcher = mPatternBar.matcher(value);
+
+        return matcher.find();
+    }
+
+    public static boolean isRow(String value) {
+        Pattern mPatternRow = Pattern.compile("^([0-9]{4,5})$");
+        Matcher matcher = mPatternRow.matcher(value);
+
+        return matcher.find();
+    }
+
+
+
     public static ProgressDialog showLoadingDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.show();

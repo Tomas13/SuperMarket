@@ -3,6 +3,7 @@ package kazpost.kz.supermarket.ui.scanner;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,9 @@ import kazpost.kz.supermarket.R;
 import kazpost.kz.supermarket.ui.base.BaseActivity;
 import kazpost.kz.supermarket.ui.chooseindex.ChooseIndexActivity;
 
+import static kazpost.kz.supermarket.utils.CommonUtils.isBarcode;
+import static kazpost.kz.supermarket.utils.CommonUtils.isRow;
+
 public class ScanActivity extends BaseActivity implements ScanMvpView {
 
     @Inject
@@ -37,13 +41,25 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     @BindView(R.id.et_postcode)
     EditText etPostCode;
     @BindView(R.id.et_row)
-    EditText etScanRow;
+    EditText etRow;
     @BindView(R.id.tv_current_post_index)
     TextView tvCurrentPostIndex;
 
     @BindString(R.string.current_post_index)
     String currentPostIndexLabel;
-    String cell, row, barcode;
+    private String cell, row, barcode;
+
+    public String getCell() {
+        return cell;
+    }
+
+    public String getRow() {
+        return row;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
 
     @BindString(R.string.nonvalid_data)
     String nonvalidData;
@@ -73,55 +89,50 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
     @OnTextChanged(R.id.et_postcode)
     public void onPostcodeChange() {
-        setStrings(etPostCode.getText().toString());
+        if (etPostCode.getText().toString().length() == 13 || etPostCode.getText().toString().length() == 4 || etPostCode.getText().toString().length() == 5) {
+
+            etRow.requestFocus();
+
+            setStrings(etPostCode.getText().toString());
+        }
     }
 
     @OnTextChanged(R.id.et_row)
     public void onRowChanged() {
-        setStrings(etScanRow.getText().toString());
+
+        if (etRow.getText().toString().length() == 13 || etRow.getText().toString().length() == 4 || etRow.getText().toString().length() == 5) {
+
+            etPostCode.requestFocus();
+
+            setStrings(etRow.getText().toString());
+        }
+
     }
 
-    private void setStrings(String value) {
+    public void setStrings(String value) {
 
+        if (isBarcode(value)) {
+            setBarcode(value);
+            Log.d("setString", "setBarcode. Barcode is " + barcode);
+        }
+
+        if (isRow(value)) {
+            setRow(value);
+            Log.d("setString", "setRow. Row+cell is " + row + cell);
+        }
+    }
+
+    public void setRow(String value) {
         if (value.length() >= 4 && value.length() <= 5) {
             row = value.substring(0, value.length() - 3);
             cell = value.substring(value.length() - 3);
         }
+    }
 
-//        if (value.length() < 4) {
-//            row = "0";
-//            cell = "0";
-//        }
-
-        if (value.length() > 6) {
+    public void setBarcode(String value) {
+        if (value.length() == 13) {
             barcode = value;
         }
-    }
-
-
-    private boolean isBarcode(String value) {
-        Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
-        Matcher matcher = mPatternBar.matcher(value);
-
-        return matcher.find();
-    }
-
-    private boolean isRow(String value) {
-        Pattern mPatternRow = Pattern.compile("^([0-9]{4,5})$");
-        Matcher matcher = mPatternRow.matcher(value);
-
-        return matcher.find();
-    }
-
-
-    @Override
-    public void showCurrentTechIndex(String currentTechIndex) {
-        tvCurrentPostIndex.setText(currentPostIndexLabel + " " + currentTechIndex);
-    }
-
-    @Override
-    public void startChooseIndexActivity() {
-        startActivity(this, new ChooseIndexActivity());
     }
 
 
@@ -136,22 +147,19 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 if (resultCode == ZXingConstants.ScanRequestCode) {
                     String result = data.getStringExtra(ZXingConstants.ScanResult);
 
-                    setStrings(result);
-
                     if (etPostCode.hasFocus()) {
-
                         etPostCode.setText(result);
-                        etScanRow.requestFocus();
+                        etRow.requestFocus();
                         break;
                     }
 
-                    if (etScanRow.hasFocus()) {
-
-                        etScanRow.setText(result);
+                    if (etRow.hasFocus()) {
+                        etRow.setText(result);
                         etPostCode.requestFocus();
                         break;
                     }
 
+                    setStrings(result);
 
 //                } else if (resultCode == ZXingConstants.ScanHistoryResultCode) {
 //                    String resultHistory = data.getStringExtra(ZXingConstants.ScanHistoryResult);
@@ -190,7 +198,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 if (presenter.checkIfPostIndexExist()) {
 
 //                    if (barcode == null) barcode = etPostCode.getText().toString();
-//                    if (row == null) row = etScanRow.getText().toString();
+//                    if (row == null) row = etRow.getText().toString();
 
                     if (checkValues()) {
                         presenter.sendData(barcode, row, cell);
@@ -224,6 +232,18 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     public void clearEditText() {
         etPostCode.setText("");
     }
+
+
+    @Override
+    public void showCurrentTechIndex(String currentTechIndex) {
+        tvCurrentPostIndex.setText(currentPostIndexLabel + " " + currentTechIndex);
+    }
+
+    @Override
+    public void startChooseIndexActivity() {
+        startActivity(this, new ChooseIndexActivity());
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

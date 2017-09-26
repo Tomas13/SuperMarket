@@ -4,7 +4,9 @@
       <root url="file://$USER_HOME$/.android/build-cache/9962b35a2aeb6deddbe7e07871423f45b9aa3382/output/res" />
       <root url="jar://$USER_HOME$/.android/build-cache/9962b35a2aeb6deddbe7e07871423f45b9aa3382/output/jars/classes.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/test/rules/0.5/rules-0.5-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/test/rules/0.5/rules-0.5-sources.jar!/" />
     </SOURCES>
