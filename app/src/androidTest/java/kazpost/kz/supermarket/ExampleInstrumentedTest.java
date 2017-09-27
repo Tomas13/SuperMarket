@@ -19,6 +19,7 @@ import kazpost.kz.supermarket.utils.EspressoIdlingResource;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -57,14 +58,20 @@ public class ExampleInstrumentedTest {
     public void checkStrings() {
 
         Espresso.registerIdlingResources(EspressoIdlingResource.getIdlingResource());
-        onView(withId(R.id.et_postcode)).perform(typeText("KZ123456789KZ"));
-        onView(withId(R.id.et_row)).perform(typeText("12045"));
-        mActivityTestRule.getActivity().setStrings("KZ123456789KZ");
-        mActivityTestRule.getActivity().setStrings("12045");
-        assertEquals("Barcode is not KZ123456789KZ", mActivityTestRule.getActivity().getBarcode(), "KZ123456789KZ");
-        assertEquals("Row is not 12", mActivityTestRule.getActivity().getRow(), "12");
-        assertEquals("Cell is not 045", mActivityTestRule.getActivity().getCell(), "045");
 
+        onView(withId(R.id.et_postcode)).perform(typeText("KZ123456789KZ"));
+        onView(withId(R.id.et_row)).perform(typeText("1204"));
+        assertEquals("Barcode is not KZ123456789KZ", mActivityTestRule.getActivity().getBarcode(), "KZ123456789KZ");
+        assertEquals("Row is not 12", "1", mActivityTestRule.getActivity().getRow());
+        assertEquals("Cell is not 045", "204", mActivityTestRule.getActivity().getCell());
+        onView(withId(R.id.btn_send)).perform(click());
+
+
+//        onView(withId(R.id.et_postcode)).perform(typeText("KZ123456789KZ"));
+        onView(withId(R.id.et_row)).perform(replaceText("12045"));
+        assertEquals("Barcode is not KZ123456789KZ", mActivityTestRule.getActivity().getBarcode(), "KZ123456789KZ");
+        assertEquals("Row is not 12", "12", mActivityTestRule.getActivity().getRow());
+        assertEquals("Cell is not 045", "045", mActivityTestRule.getActivity().getCell());
         onView(withId(R.id.btn_send)).perform(click());
 
 
@@ -72,11 +79,11 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.et_postcode)).perform(typeText("5088"));
         onView(withId(R.id.et_row)).perform(clearText());
         onView(withId(R.id.et_row)).perform(typeText("AA123456789AA"));
-        mActivityTestRule.getActivity().setStrings("5088");
-        mActivityTestRule.getActivity().setStrings("AA123456789AA");
         assertEquals("Barcode is not AA123456789AA", mActivityTestRule.getActivity().getBarcode(), "AA123456789AA");
-        assertEquals("Row is not 5", mActivityTestRule.getActivity().getRow(), "5");
-        assertEquals("Cell is not 088", mActivityTestRule.getActivity().getCell(), "088");
+        assertEquals("Row is not 5", "5", mActivityTestRule.getActivity().getRow());
+        assertEquals("Cell is not 088", "088", mActivityTestRule.getActivity().getCell());
+
+        onView(withId(R.id.btn_send)).perform(click());
     }
 
     @org.mockito.Mock
