@@ -89,52 +89,13 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
 
     @OnTextChanged(R.id.et_postcode)
     public void onPostcodeChange() {
-        if (etPostCode.getText().toString().length() == 13 || etPostCode.getText().toString().length() == 4 || etPostCode.getText().toString().length() == 5) {
-
-            etRow.requestFocus();
-
-            setStrings(etPostCode.getText().toString());
-        }
+        setStrings(etPostCode.getText().toString());
     }
 
     @OnTextChanged(R.id.et_row)
     public void onRowChanged() {
-
-        if (etRow.getText().toString().length() == 13 || etRow.getText().toString().length() == 4 || etRow.getText().toString().length() == 5) {
-
-            etPostCode.requestFocus();
-
-            setStrings(etRow.getText().toString());
-        }
-
+        setStrings(etRow.getText().toString());
     }
-
-    public void setStrings(String value) {
-
-        if (isBarcode(value)) {
-            setBarcode(value);
-            Log.d("setString", "setBarcode. Barcode is " + barcode);
-        }
-
-        if (isRow(value)) {
-            setRow(value);
-            Log.d("setString", "setRow. Row+cell is " + row + cell);
-        }
-    }
-
-    public void setRow(String value) {
-        if (value.length() >= 4 && value.length() <= 5) {
-            row = value.substring(0, value.length() - 3);
-            cell = value.substring(value.length() - 3);
-        }
-    }
-
-    public void setBarcode(String value) {
-        if (value.length() == 13) {
-            barcode = value;
-        }
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -160,12 +121,6 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                     }
 
                     setStrings(result);
-
-//                } else if (resultCode == ZXingConstants.ScanHistoryResultCode) {
-//                    String resultHistory = data.getStringExtra(ZXingConstants.ScanHistoryResult);
-//                    if (!TextUtils.isEmpty(resultHistory)) {
-//                        startActivity(new Intent(MainActivity.this,HistoryActivity.class));
-//                    }
                 }
                 break;
         }
@@ -227,6 +182,34 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         }
 
     }
+
+
+    public void setStrings(String value) {
+
+        if (isBarcode(value)) {
+            setBarcode(value);
+            Log.d("setString", "setBarcode. Barcode is " + barcode);
+        }
+
+        if (isRow(value)) {
+            setRow(value);
+            Log.d("setString", "setRow. Row+cell is " + row + cell);
+        }
+    }
+
+    public void setRow(String value) {
+        if (value.length() >= 4 && value.length() <= 5) {
+            row = value.substring(0, value.length() - 3);
+            cell = value.substring(value.length() - 3);
+        }
+    }
+
+    public void setBarcode(String value) {
+        if (value.length() == 13) {
+            barcode = value;
+        }
+    }
+
 
     @Override
     public void clearEditText() {

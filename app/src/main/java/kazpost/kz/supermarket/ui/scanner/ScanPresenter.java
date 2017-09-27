@@ -10,6 +10,7 @@ import kazpost.kz.supermarket.data.DataManager;
 import kazpost.kz.supermarket.data.network.model.Response;
 import kazpost.kz.supermarket.data.network.model.SendData;
 import kazpost.kz.supermarket.ui.base.BasePresenter;
+import kazpost.kz.supermarket.utils.EspressoIdlingResource;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -38,6 +39,10 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 
     @Override
     public void sendData(String barcode, String row, String cell) {
+
+        // The network request might be handled in a different thread so make sure Espresso knows
+        // that the app is busy until the response is handled.
+        EspressoIdlingResource.increment(); // App is busy until further notice
 
         getMvpView().showLoading();
 
@@ -102,12 +107,17 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 
                 }
 
+                EspressoIdlingResource.decrement(); // Set app as idle.
+
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
                 getMvpView().onErrorToast("Status " + t.getMessage());
                 getMvpView().hideLoading();
+
+                EspressoIdlingResource.decrement(); // Set app as idle.
+
 
             }
         });

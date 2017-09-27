@@ -3,11 +3,9 @@ package kazpost.kz.supermarket;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,6 +14,7 @@ import org.junit.runners.MethodSorters;
 
 import kazpost.kz.supermarket.data.DataManager;
 import kazpost.kz.supermarket.ui.scanner.ScanActivity;
+import kazpost.kz.supermarket.utils.EspressoIdlingResource;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -49,47 +48,15 @@ public class ExampleInstrumentedTest {
             new ActivityTestRule<>(ScanActivity.class);
 
 
-   /* @Test
-    public void checkSaveIndex() {
-//        if (dataManager.getPostIndex() == null) {
-            mActivityChooseIndexTestRule.getActivity().setSpinnerSelectionInView(1);
-//        }
-
-        assertNotEquals("post index is null ", dataManager.getPostIndex(), null);
-    }*/
-
     @Test
     public void checkTextView() {
         onView(withText(R.string.scan_title)).check(matches(isDisplayed()));
     }
 
-
-    private CountingIdlingResource fooServerIdlingResource;
-
-    @Before
-    public void setUp() throws Exception {
-//        super.setUp();
-//        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-//        getActivity();
-        CountingIdlingResource countingResource = new CountingIdlingResource("FooServerCalls");
-        this.fooServerIdlingResource = countingResource;
-        Espresso.registerIdlingResources(countingResource);
-    }
-
-    public boolean performClick() {
-        fooServerIdlingResource.increment();
-        try {
-
-            onView(withId(R.id.btn_send)).perform(click());
-            return true;
-        } finally {
-            fooServerIdlingResource.decrement();
-        }
-    }
-
-
     @Test
     public void checkStrings() {
+
+        Espresso.registerIdlingResources(EspressoIdlingResource.getIdlingResource());
         onView(withId(R.id.et_postcode)).perform(typeText("KZ123456789KZ"));
         onView(withId(R.id.et_row)).perform(typeText("12045"));
         mActivityTestRule.getActivity().setStrings("KZ123456789KZ");
@@ -98,7 +65,7 @@ public class ExampleInstrumentedTest {
         assertEquals("Row is not 12", mActivityTestRule.getActivity().getRow(), "12");
         assertEquals("Cell is not 045", mActivityTestRule.getActivity().getCell(), "045");
 
-        performClick();
+        onView(withId(R.id.btn_send)).perform(click());
 
 
         onView(withId(R.id.et_postcode)).perform(clearText());
