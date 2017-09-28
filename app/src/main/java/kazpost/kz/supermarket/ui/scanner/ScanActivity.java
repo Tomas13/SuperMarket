@@ -170,17 +170,21 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     private boolean checkValues() {
         Pattern mPatternRow = Pattern.compile("^([0-9]{4,5})$");
         Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
-        Matcher matcher = mPatternBar.matcher(barcode);
-        Matcher matcherRow = mPatternRow.matcher(row + cell);
 
-        if (matcher.find() && matcherRow.find()) {
-            return true;
-        } else {
-
-            onErrorToast(nonvalidData);
-            return false;
+        if (barcode != null && row != null && cell != null) {
+            Matcher matcher = mPatternBar.matcher(barcode);
+            Matcher matcherRow = mPatternRow.matcher(row + cell);
+            if (matcher.find() && matcherRow.find()) {
+                return true;
+            } else {
+                onErrorToast(nonvalidData);
+                return false;
+            }
+        }else{
+            Toast.makeText(this, R.string.nonvalid_data, Toast.LENGTH_SHORT).show();
         }
 
+        return false;
     }
 
 

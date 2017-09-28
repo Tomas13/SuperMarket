@@ -16,16 +16,21 @@ import kazpost.kz.supermarket.data.DataManager;
 import kazpost.kz.supermarket.ui.scanner.ScanActivity;
 import kazpost.kz.supermarket.utils.EspressoIdlingResource;
 
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -35,6 +40,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ExampleInstrumentedTest {
+
+
+    @org.mockito.Mock
+    DataManager dataManager;
+
+
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
@@ -86,8 +97,53 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.btn_send)).perform(click());
     }
 
-    @org.mockito.Mock
-    DataManager dataManager;
+
+    @Test
+    public void checkToastOnWrongPostCode() {
+        onView(withId(R.id.et_postcode)).perform(clearText());
+        onView(withId(R.id.et_postcode)).perform(typeText("50"));
+        onView(withId(R.id.et_row)).perform(clearText());
+        onView(withId(R.id.et_row)).perform(typeText("AA123456789AA"));
+
+        onView(withId(R.id.btn_send)).perform(click());
+
+        onView(withText(R.string.nonvalid_data))
+                .inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
+
+        assertEquals("Barcode is not AA123456789AA", mActivityTestRule.getActivity().getBarcode(), "AA123456789AA");
+        assertNotEquals("Row is 5", "5", mActivityTestRule.getActivity().getRow());
+        assertNotEquals("Cell is 0", "0", mActivityTestRule.getActivity().getCell());
+    }
+
+    @Test
+    public void checkToastOnWrongBarcodeCode() {
+        onView(withId(R.id.et_postcode)).perform(replaceText("7889"));
+        onView(withId(R.id.et_row)).perform(clearText());
+        onView(withId(R.id.et_row)).perform(typeText("AA123456789"));
+
+        onView(withId(R.id.btn_send)).perform(click());
+
+        onView(withText(R.string.nonvalid_data))
+                .inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
+
+        assertNotEquals("Barcode is AA123456789", "AA123456789", mActivityTestRule.getActivity().getBarcode());
+        assertEquals("Row is not 7", "7", mActivityTestRule.getActivity().getRow());
+        assertEquals("Cell is not 889", "889", mActivityTestRule.getActivity().getCell());
+    }
 
 
+    @Test
+    public void zSendAfterTryingWithWrongArguments() {
+        onView(withId(R.id.et_postcode)).perform(clearText());
+        onView(withId(R.id.et_postcode)).perform(typeText("5088"));
+        onView(withId(R.id.et_row)).perform(clearText());
+        onView(withId(R.id.et_row)).perform(typeText("AA123456789AA"));
+        assertEquals("Barcode is not AA123456789AA", mActivityTestRule.getActivity().getBarcode(), "AA123456789AA");
+        assertEquals("Row is not 5", "5", mActivityTestRule.getActivity().getRow());
+        assertEquals("Cell is not 088", "088", mActivityTestRule.getActivity().getCell());
+
+        onView(withId(R.id.btn_send)).perform(click());
+    }
 }
