@@ -15,4 +15,5 @@ public interface ScanMvpView extends MvpView {
 
     void startChooseIndexActivity();
 
+    void onResponse();
 }

@@ -126,7 +126,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         }
     }
 
-    @OnClick({R.id.btn_scan, R.id.btn_send})
+    @OnClick({R.id.btn_scan, R.id.btn_send, R.id.btn_clean})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_scan:
@@ -163,6 +163,16 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 }
 
                 break;
+
+            case R.id.btn_clean:
+
+                etPostCode.getText().clear();
+                etRow.getText().clear();
+                etPostCode.requestFocus();
+                barcode = null;
+                row = null;
+                cell = null;
+                break;
         }
     }
 
@@ -171,6 +181,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
         Pattern mPatternRow = Pattern.compile("^([0-9]{4,5})$");
         Pattern mPatternBar = Pattern.compile("^([A-Z]{2}[0-9]{9}[A-Z]{2})$");
 
+        Log.d("setString", "bar " + barcode + "row " + row + "cell " + cell);
         if (barcode != null && row != null && cell != null) {
             Matcher matcher = mPatternBar.matcher(barcode);
             Matcher matcherRow = mPatternRow.matcher(row + cell);
@@ -180,7 +191,7 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
                 onErrorToast(nonvalidData);
                 return false;
             }
-        }else{
+        } else {
             Toast.makeText(this, R.string.nonvalid_data, Toast.LENGTH_SHORT).show();
         }
 
@@ -199,18 +210,24 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
             setRow(value);
             Log.d("setString", "setRow. Row+cell is " + row + cell);
         }
+
     }
 
     public void setRow(String value) {
         if (value.length() >= 4 && value.length() <= 5) {
             row = value.substring(0, value.length() - 3);
             cell = value.substring(value.length() - 3);
+        } else {
+            row = null;
+            cell = null;
         }
     }
 
     public void setBarcode(String value) {
         if (value.length() == 13) {
             barcode = value;
+        } else {
+            barcode = null;
         }
     }
 
@@ -229,6 +246,13 @@ public class ScanActivity extends BaseActivity implements ScanMvpView {
     @Override
     public void startChooseIndexActivity() {
         startActivity(this, new ChooseIndexActivity());
+    }
+
+    @Override
+    public void onResponse() {
+       /* barcode = null;
+        row = null;
+        cell = null;*/
     }
 
 

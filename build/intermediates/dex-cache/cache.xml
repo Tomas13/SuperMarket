@@ -21,15 +21,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/root/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-android/1.6.5/40c25a11d65fd6cda13eb5df3e5258d941ed1bc3/byte-buddy-android-1.6.5.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="40c25a11d65fd6cda13eb5df3e5258d941ed1bc3">
-        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/byte-buddy-android-1.6.5_d61f4a1c773e4537c430a76190554ec1ccff4eb8.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/home/jean/Desktop/SuperMarket/libraryzxing/build/intermediates/bundles/default/libs/zxing.jar"
         jumboMode="false"
         optimize="true"
@@ -81,6 +72,15 @@
         revision="25.0.2"
         sha1="df095f25878dd6b78e200cd3f27f038668b45394">
         <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/debug/DataCollection_056721d3e54d51f26f8dbfaa9600e47a036c9524.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/root/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-android/1.6.5/40c25a11d65fd6cda13eb5df3e5258d941ed1bc3/byte-buddy-android-1.6.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="40c25a11d65fd6cda13eb5df3e5258d941ed1bc3">
+        <dex dex="/home/jean/Desktop/SuperMarket/app/build/intermediates/pre-dexed/androidTest/debug/byte-buddy-android-1.6.5_d61f4a1c773e4537c430a76190554ec1ccff4eb8.jar" />
     </item>
     <item
         is-multidex="false"

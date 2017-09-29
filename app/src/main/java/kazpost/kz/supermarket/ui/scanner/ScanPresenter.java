@@ -82,6 +82,7 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 */
 
                     getMvpView().onErrorToast(response.body().getMessage());
+                    getMvpView().onResponse();
                     getMvpView().hideLoading();
 
                 } else {
@@ -103,6 +104,7 @@ public class ScanPresenter<V extends ScanMvpView> extends BasePresenter<V> imple
 
 
                     getMvpView().onErrorToast(map.get("\"message\""));
+                    getMvpView().onResponse();
                     getMvpView().hideLoading();
 
                 }

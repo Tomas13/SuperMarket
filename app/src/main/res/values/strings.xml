@@ -36,4 +36,5 @@
     <string name="nonvalid_data">Формат введенных данных не верен</string>
     <string name="scan">Сканировать</string>
     <string name="send">Отправить</string>
+    <string name="clear">очистить</string>
 </resources>
